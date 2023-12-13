@@ -67,15 +67,19 @@
 
     </div>
 
-    <!-- BudouX, Leaflet, Driver.js, JavaScript Cookie, GeographicLib -->
+    <!-- BudouX, Leaflet, Driver.js -->
     <script src="https://unpkg.com/budoux/bundle/budoux-ja.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-    <script src="https://geographiclib.sourceforge.io/scripts/geographiclib-geodesic.min.js"></script>
 
     <script>
-        const ANS_COORDS = JSON.parse("{{ ANS_COORDS }}");
+        document.querySelector("iframe").src = `https://cdn.pannellum.org/2.5/pannellum.htm#panorama=${
+            location.origin
+        }/static/images/panorama/{{ filename }}.jpg&autoLoad=true`;
+
+        const [NUM_QUESTIONS, currentIndex] = [
+            Number("{{ NUM_QUESTIONS }}"), Number("{{ currentIndex }}")
+        ];
     </script>
     <script src="{{ url_for('static', filename='js/game.js') }}"></script>
 {% endblock %}

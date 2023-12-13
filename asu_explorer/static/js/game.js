@@ -1,33 +1,3 @@
-function rangeShuffle(n) {
-    const a = new Array(n);
-    for (let i = 0; i < n; i++) {  // 連番の生成
-        a[i] = i;
-    }
-    for (let i = 0, j; i < n - 1; i++) {  // by Durstenfeld
-        j = Math.floor(Math.random() * (n - i) + i);
-        [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-}
-
-const NUM_IMAGES = 9, NUM_QUESTIONS = 3, RADIUS = 25;
-
-if (localStorage.getItem("questions") === null) {
-    localStorage.setItem("questions", JSON.stringify(
-        rangeShuffle(NUM_IMAGES).slice(0, NUM_QUESTIONS)
-    ));
-    localStorage.setItem("currentIndex", "0");
-}
-const [questions, currentIndex] = [
-    JSON.parse(localStorage.getItem("questions")),
-    Number(localStorage.getItem("currentIndex"))
-];
-
-// パノラマ
-document.querySelector("iframe").src = `https://cdn.pannellum.org/2.5/pannellum.htm#panorama=${
-    location.origin
-}/static/images/panorama/${questions[currentIndex]}.jpg&autoLoad=true`;
-
 // マップ
 init_map();
 const map = document.querySelector("#iframeOverlay");
@@ -43,16 +13,20 @@ if (!localStorage.getItem("isVisited")) {
 // Explore
 const explore = document.querySelector("#center button");
 const id = navigator.geolocation.watchPosition(
-    function(pos) {
-        const distance = geodesic.Geodesic.WGS84.Inverse(
-            pos.coords.latitude, pos.coords.longitude,
-            ...ANS_COORDS[questions[currentIndex]], geodesic.Geodesic.DISTANCE
-        ).s12;
-        explore.disabled = !(distance <= RADIUS);
+    async function(pos) {
+        const response = await fetch("../success", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                currentCoords: [pos.coords.latitude, pos.coords.longitude]
+            })
+        });
+        const jsonData = await response.json();
+        explore.disabled = !jsonData.isNearDestination;
 
         // document.querySelector("footer").textContent = `[${
         //     pos.coords.latitude.toFixed(6)}, ${pos.coords.longitude.toFixed(6)
-        // }], ${distance.toFixed(2)}`;
+        // }], ${jsonData.distance.toFixed(2)}`;
     },
     function(err) {
         if (err.code === 1) {
@@ -82,18 +56,15 @@ explore.addEventListener("click", function() {
 });
 
 const next = document.querySelector("#next");
-next.addEventListener("click", function() {
-	next.disabled = true;  // 2度押し防止
+next.addEventListener("click", async function() {
+    next.disabled = true;  // 2度押し防止
 
-    if (currentIndex !== NUM_QUESTIONS - 1) {
-        localStorage.setItem("currentIndex", currentIndex + 1);
+    const response = await fetch("../next", {method: "POST"});
+    const jsonData = await response.json();
+
+    if (jsonData.hasNextQuestion) {
         location.reload();
     } else {
-        localStorage.removeItem("questions");
-
-        if (Cookies.get("progress") === undefined) {
-            Cookies.set("progress", "register", {expires: 7});
-        }
         location.href += "/register";
     }
 });
@@ -109,8 +80,9 @@ document.querySelector(
 
 document.querySelector("#lb").addEventListener("click", function() {
     if (confirm("問題をリセットします。\nこの操作は取り消せません。よろしいですか？")) {
-        localStorage.removeItem("questions");
-        location.reload();
+        fetch("../reset", {method: "POST"}).then(function(response) {
+            location.reload();
+        });
     }
 });
 

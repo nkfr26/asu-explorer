@@ -1,13 +1,18 @@
+from random import sample
 from datetime import datetime, date
 
 from flask import (
-    render_template, redirect, url_for, request, make_response
+    render_template, redirect, url_for, request, jsonify, session
 )
+from geographiclib.geodesic import Geodesic
 
 from . import app, db, ANS_COORDS
 from .models import User
 from .form_validation import RegistrationForm
 
+
+NUM_IMAGES = len(ANS_COORDS)
+NUM_QUESTIONS = 3; RADIUS = 25
 
 @app.route("/")
 def index():
@@ -15,7 +20,54 @@ def index():
 
 @app.route("/game")
 def game():
-    return render_template("game.html", ANS_COORDS=ANS_COORDS)
+    if session.get("questions") is None:
+        session.update(
+            current_index=0, auth=False,
+            questions=sample(range(NUM_IMAGES), NUM_QUESTIONS)
+        )
+
+    question = session["questions"][session["current_index"]]
+    return render_template(
+        "game.html", filename=question,
+        NUM_QUESTIONS=NUM_QUESTIONS, currentIndex=session["current_index"]
+    )
+
+@app.route("/success", methods=["POST"])
+def success():
+    question = session["questions"][session["current_index"]]
+    distance = Geodesic.WGS84.Inverse(
+        *request.json["currentCoords"],
+        *ANS_COORDS[question], Geodesic.DISTANCE
+    )["s12"]
+    is_near_destination = distance <= RADIUS
+
+    if is_near_destination:
+        session["auth"] = True
+
+    return jsonify({
+        "isNearDestination": is_near_destination  # , "distance": distance
+    })
+
+@app.route("/next", methods=["POST"])
+def next_():
+    if session["auth"]:
+        if session["current_index"] != NUM_QUESTIONS - 1:
+            session["auth"] = False
+            session["current_index"] += 1
+        else:
+            if session.get("progress") is None:
+                session["progress"] = "register"
+
+            del session["questions"]
+
+    return jsonify({
+        "hasNextQuestion": bool(session.get("questions"))
+    })
+
+@app.route("/reset", methods=["POST"])
+def reset():
+    del session["questions"]
+    return "", 204
 
 @app.route("/game/register", methods=["GET", "POST"])
 def register():
@@ -31,11 +83,10 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        response = make_response(redirect(url_for("leaderboard")))
-        response.set_cookie("progress", "leaderboard", 60 * 60 * 24 * 400)
-        return response
+        session["progress"] = "leaderboard"
+        return redirect(url_for("leaderboard"))
 
-    if request.cookies.get("progress") == "register":
+    if session.get("progress") == "register":
         return render_template("register.html", form=form)
     else:
         return redirect(url_for("leaderboard"))
