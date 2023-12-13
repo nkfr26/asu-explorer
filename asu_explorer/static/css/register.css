@@ -1,0 +1,55 @@
+body {
+    height: 100dvh; display: grid;
+    grid-template:
+        "h" 20%
+        "m" 1fr
+        "f" 1.5em
+    ;
+    background: linear-gradient(to right bottom, #efe, #e4ecff);
+}
+
+/* -------------------- */
+
+header {
+    grid-area: h;
+    display: grid; align-items: center;
+}
+
+header div {
+    display: grid; justify-items: center;
+}
+
+header div a {
+    width: 80%;
+}
+
+header div a img {
+    width: 100%; height: auto;
+}
+
+header div span {
+    font-size: 22px; color: #808080;
+}
+
+/* -------------------- */
+
+main {
+    grid-area: m;
+}
+
+.d-grid {
+    margin: 15% 5% 0; padding: 5%;
+    background-color: #fff;
+    border: 1px solid #dee2e6; border-radius: 5px;
+}
+
+#description {
+    display: grid; justify-items: center;
+    font-weight: bold; margin-bottom: 15px;
+}
+
+/* -------------------- */
+
+.alert span {
+    color: var(--bs-danger-text-emphasis);
+}

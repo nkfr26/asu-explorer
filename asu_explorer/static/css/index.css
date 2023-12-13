@@ -1,0 +1,60 @@
+body {
+    height: 100dvh; display: grid;
+    grid-template:
+        "h" 30%
+        "m" 1fr
+        "f" 1.5em
+    ;
+    background: linear-gradient(to right bottom, #efe, #e4ecff);
+}
+
+/* -------------------- */
+
+header {
+    grid-area: h;
+    display: grid; align-items: end;
+}
+
+header div {
+    display: grid; justify-items: center;
+}
+
+header div img {
+    width: 80%;
+}
+
+header div span {
+    font-size: 18px; color: #808080;
+}
+
+/* -------------------- */
+
+main {
+    grid-area: m;
+}
+
+main div {
+    display: grid; justify-items: center;
+    row-gap: 10px; margin-top: 24%;
+}
+
+a {
+    display: grid; justify-items: center;
+    width: 66%; padding: 4% 0;
+    font-size: 22px; color: #fff;
+    border-radius: 9999px;
+    outline: 2px solid #fff; outline-offset: -6px;
+}
+
+a:hover {
+    opacity: 0.75;
+    outline: 2px solid #fff; outline-offset: -6px;
+}
+
+#game {
+    background-image: linear-gradient(to right, #28f, #008);
+}
+
+#leaderboard {
+    background-image: linear-gradient(to right, #2f8, #080);
+}

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <!-- ress, Leaflet, Driver.js, Font Awesome -->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div id="app" style="visibility: hidden;">
+        <header>
+            <a href="{{ url_for('index') }}">
+                <img width="966" height="214" src="{{ url_for('static', filename='images/logo.png')}}">
+            </a>
+        </header>
+
+        <iframe></iframe>
+
+        <button id="lt" class="btn" type="button">
+            <i class="fa-solid fa-lightbulb"></i>
+            <div>Tutorial</div>
+        </button>
+        <button id="lb" class="btn" type="button">
+            <i class="fa-solid fa-rotate"></i>
+            <div>Reset</div>
+        </button>
+
+        <div id="rt">
+            <div id="round">
+                <div>Round</div>
+                <div></div>
+            </div>
+        </div>
+        <button id="rb" class="btn toggle" type="button">
+            <i class="fa-solid fa-map-location-dot"></i>
+            <div>Map</div>
+        </button>
+
+        <div id="center">
+            <button type="button" disabled>Explore</button>
+        </div>
+
+        <footer>人間情報研究会</footer>
+
+        <div id="iframeOverlay" class="visibility-hidden">
+            <div id="mapWindow">
+                <div id="map"></div>
+                <button type="button" class="toggle">
+                    <i class="fa-solid fa-xmark fa-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="appOverlay" style="visibility: hidden;">
+            <div id="modal">
+                <img width="988" height="250">
+                <p></p>
+                <div class="driver-popover-footer">
+                    <button id="next">次へ</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- BudouX, Leaflet, Driver.js, JavaScript Cookie, GeographicLib -->
+    <script src="https://unpkg.com/budoux/bundle/budoux-ja.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script src="https://geographiclib.sourceforge.io/scripts/geographiclib-geodesic.min.js"></script>
+
+    <script>
+        const ANS_COORDS = JSON.parse("{{ ANS_COORDS }}");
+    </script>
+    <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+{% endblock %}

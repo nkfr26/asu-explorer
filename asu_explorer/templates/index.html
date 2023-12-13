@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block body %}
+    <header>
+        <div>
+            <img src="{{ url_for('static', filename='images/logo.png')}}">
+            <span>愛知淑徳大学を探検しよう！</span>
+        </div>
+    </header>
+
+    <main>
+        <div>
+            <a id="game" href="{{ url_for('game') }}">スタート</a>
+            <a id="leaderboard" href="{{ url_for('leaderboard') }}">クリア者一覧</a>
+        </div>
+    </main>
+
+    <footer>人間情報研究会</footer>
+{% endblock %}

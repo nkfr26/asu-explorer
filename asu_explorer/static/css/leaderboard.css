@@ -1,0 +1,84 @@
+body {
+    min-height: 100dvh;
+    display: grid; grid-template:
+        "h" 10%
+        "m" 1fr
+        "f" 1.5em
+    ;
+    background: linear-gradient(to right bottom, #efe, #e4ecff);
+}
+
+/* -------------------- */
+
+header {
+    grid-area: h;
+    display: grid; place-items: center;
+}
+
+header a {
+    width: 60%;
+}
+
+header a img {
+    width: 100%; height: auto;
+}
+
+/* -------------------- */
+
+main {
+    grid-area: m;
+}
+
+#accordionParent {
+    margin: 0 5%;
+}
+
+.accordion-button:focus,
+.accordion-button:not(.collapsed) {
+    box-shadow: none;
+}
+
+/* -------------------- */
+
+.no-data {
+    text-align: center;
+}
+
+table {
+    counter-reset: rowCount;
+}
+
+table tbody tr {
+    counter-increment: rowCount;
+}
+
+table tbody tr .num::before {
+    content: counter(rowCount);
+}
+
+/* -------------------- */
+
+.table {
+    margin-bottom: 0; overflow: hidden;
+    border-collapse: separate; border-spacing: 0;
+    border: 1px solid #dee2e6; border-radius: 5px;
+}
+
+th {
+    color: #fff !important;
+}
+
+/* -------------------- */
+
+td, th {
+    border: none;
+    background-color: transparent !important;
+}
+
+thead tr {
+    background-color: #627fb2;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f0f8ff;
+}

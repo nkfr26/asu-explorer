@@ -1,0 +1,176 @@
+#app {
+    height: 100dvh; display: grid;
+    grid-template:
+        "h  h  h" 10%
+        "p  p  p" 1fr
+        "lt c rt" calc(100dvw * 0.2)
+        "lb c rb" calc(100dvw * 0.2)
+        "f  f  f" 1.5rem / 1fr 50% 1fr
+    ;
+    background: linear-gradient(to right bottom, #efe, #e4ecff);
+}
+
+/* -------------------- */
+
+header {
+    grid-area: h;
+    display: grid; place-items: center;
+}
+
+header a {
+    width: 60%;
+}
+
+header a img {
+    width: 100%; height: auto;
+}
+
+/* -------------------- */
+
+iframe {
+    grid-area: p;
+    border-style: none;
+    width: 100%; height: 100%;
+}
+
+/* -------------------- */
+
+#center {
+    grid-area: c;
+    display: grid; align-items: center;
+}
+
+#center button {
+    height: 40%; font-size: 2rem;
+    color: #fff; background-color: #ec6e70;
+    border: 2px outset #fff; border-radius: 5px;
+    font-family: "NotoSans-Medium";
+}
+
+#center button:disabled {
+    background-color: #ddd;
+}
+
+/* -------------------- */
+
+#rt {
+    grid-area: rt;
+    margin: 14px 0 6px 14px;
+    display: grid; place-items: center;
+    background-color: #ebf;
+    border: 2px solid #fff; border-radius: 5px 0 0 5px;
+}
+
+#round {
+    margin-right: 14px;
+}
+
+#round * {
+    font-family: "NotoSans-Bold";
+}
+
+#round div:nth-child(1) {
+    font-size: 11px; color: #fdf5ff;
+}
+
+#round div:nth-child(2) {
+    font-size: 20px; color: #fff;
+}
+
+/* -------------------- */
+
+#lt {
+    grid-area: lt;
+}
+
+#lb {
+    grid-area: lb;
+}
+
+#rb {
+    grid-area: rb;
+}
+
+.btn {
+    margin: 14px; background-color: #fff;
+    border: 1px solid #000; border-radius: 5px;
+}
+
+.btn i {
+    font-size: large;
+}
+
+.btn div {
+    font-size: small; font-family: "NotoSans-Regular";
+}
+
+/* -------------------- */
+
+#round, .btn div {
+    line-height: 1.2;
+}
+
+/* -------------------- */
+
+.driver-popover-arrow {
+    visibility: hidden;
+}
+
+.driver-popover-close-btn {
+    color: #000; display: block !important;
+}
+
+/* -------------------- */
+
+#iframeOverlay {
+    grid-area: p;
+    position: relative;
+}
+
+#mapWindow {
+    width: 100%;
+    position: absolute; bottom: 0;
+}
+
+#mapWindow #map {
+    width: 100%; padding-top: 100%;
+}
+
+#mapWindow button {
+    position: absolute;
+    top: 0; right: 0; z-index: 1000;
+    padding: 0 8px 8px; height: 40px;
+    background-color: transparent; border-style: none;
+}
+
+/* -------------------- */
+
+#appOverlay {
+    width: 100%; height: 100%;
+    position: fixed; inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: grid; place-items: center;
+}
+
+#modal {
+    width: 60%; background-color: #fff;
+    padding: 15px; border-radius: 5px;
+}
+
+#modal img {
+    width: 100%; height: auto; padding: 10px;
+}
+
+#modal p {
+    text-align: center; font-size: large;
+}
+
+#modal div {
+    justify-content: flex-end; margin-top: 0;
+}
+
+/* -------------------- */
+
+.visibility-hidden {
+	visibility: hidden;
+}
