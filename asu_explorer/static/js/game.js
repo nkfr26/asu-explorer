@@ -13,6 +13,7 @@ if (!localStorage.getItem("isVisited")) {
 // Explore
 const explore = document.querySelector("#center button");
 const id = navigator.geolocation.watchPosition(
+    // success
     async function(pos) {
         const response = await fetch("../success", {
             method: "POST",
@@ -25,9 +26,10 @@ const id = navigator.geolocation.watchPosition(
         explore.disabled = !jsonData.isNearDestination;
 
         // document.querySelector("footer").textContent = `[${
-        //     pos.coords.latitude.toFixed(6)}, ${pos.coords.longitude.toFixed(6)
-        // }], ${jsonData.distance.toFixed(2)}`;
+        //     pos.coords.latitude.toFixed(7)}, ${pos.coords.longitude.toFixed(7)
+        // }], ${jsonData.distance.toFixed(1)}`;
     },
+    // error, options
     function(err) {
         if (err.code === 1) {
             alert("位置情報の利用を許可してください。");

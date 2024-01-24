@@ -42,6 +42,28 @@ sess = Session(app)
 with app.app_context():
     db.create_all()
 
+# monkey patch
+from flask_admin._compat import pass_context
+from flask_admin.model.base import BaseModelView
+
+@pass_context
+def get_list_value(self, context, model, name):
+    return str(self._get_list_value(
+        context, model, name,
+        self.column_formatters,
+        self.column_type_formatters
+    ))
+
+BaseModelView.get_list_value = get_list_value
+
+path = f"{os.environ['VIRTUAL_ENV']}/Lib/site-packages/flask_admin/templates/bootstrap2/admin/model/list.html"
+with open(path, mode="r", encoding="utf-8") as f:
+    lines = f.readlines()
+    lines[146] = "{{ get_value(row, c)|truncate(50) }}\n"
+
+with open(path, mode="w", encoding="utf-8") as f:
+    f.writelines(lines)
+
 # admin
 from flask_admin import Admin
 from flask_basicauth import BasicAuth

@@ -1,16 +1,16 @@
 @font-face {
-	font-family: "NotoSans-Regular";
-	src: url(./fonts/NotoSans-Regular.ttf);
+    font-family: "NotoSans-Regular";
+    src: url(./fonts/NotoSans-Regular.ttf);
 }
 
 @font-face {
-	font-family: "NotoSans-Medium";
-	src: url(./fonts/NotoSans-Medium.ttf);
+    font-family: "NotoSans-Medium";
+    src: url(./fonts/NotoSans-Medium.ttf);
 }
 
 @font-face {
-	font-family: "NotoSans-Bold";
-	src: url(./fonts/NotoSans-Bold.ttf);
+    font-family: "NotoSans-Bold";
+    src: url(./fonts/NotoSans-Bold.ttf);
 }
 
 /* -------------------- */
@@ -29,17 +29,17 @@ a {
 }
 
 img {
-	vertical-align: bottom;
+    vertical-align: bottom;
 }
 
 footer {
     grid-area: f;
-	line-height: 1.5; color: #627fb2;
-	text-align: end; padding-right: 4px;
+    line-height: 1.5; color: #627fb2;
+    text-align: end; padding-right: 4px;
 }
 
 @media screen and (min-width: 992px) {
-	body {
-		visibility: hidden;
-	}
+    body {
+        visibility: hidden;
+    }
 }
