@@ -3,6 +3,7 @@ addEventListener("pageshow", function(event) {
         location.reload();
     }
 });
+
 if (!hasError) {
     confetti();
 }

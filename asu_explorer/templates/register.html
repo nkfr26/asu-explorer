@@ -21,9 +21,11 @@
         <form class="d-grid" method="post" action="{{ url_for('register') }}">
             {{ form.csrf_token }}
             <div id="description">
-                <budoux-ja>
-                    <a href="{{ url_for('leaderboard') }}" style="text-decoration: none;">クリア者一覧</a>に登録する<br>ハンドルネームを入力してください！
-                </budoux-ja>
+                <span>
+                    <a href="{{ url_for('leaderboard') }}"><!--
+                        -->クリア者一覧<!--
+                    --></a>に登録する<br>ハンドルネームを入力してください！
+                </span>
             </div>
             {{ form.name(class_="form-control mb-2") }}
             {% if form.name.errors %}
@@ -40,9 +42,8 @@
 
     <footer>人間情報研究会</footer>
 
-    <!-- Bootstrap, BudouX, Canvas Confetti -->
+    <!-- Bootstrap, Canvas Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/budoux/bundle/budoux-ja.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.0/dist/confetti.browser.min.js"></script>
 
     <script>

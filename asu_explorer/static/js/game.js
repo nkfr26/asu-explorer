@@ -109,6 +109,7 @@ function init_map() {
         crs: L.CRS.Simple
     }).fitBounds(bounds).setMaxBounds(bounds));
 }
+
 function init_driverjs() {
     return driver.js.driver({
         stagePadding: 4, allowClose: false,
