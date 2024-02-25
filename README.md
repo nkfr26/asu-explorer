@@ -6,6 +6,8 @@ https://asuexplorer.pythonanywhere.com
 * GeographicLib 2.0
 
 ## Usage
+1. Create `.env` file in the root directory with reference to `env_sample.txt`
+1. Execute the following commands in order from the top
 ```
 python -m venv .venv
 .venv/scripts/activate
