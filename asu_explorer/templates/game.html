@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 
 {% block head %}
-    <!-- ress, Leaflet, Driver.js, Font Awesome -->
+    <!-- ress, Pannellum, Leaflet, Driver.js, Font Awesome -->
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -18,7 +19,7 @@
             </a>
         </header>
 
-        <iframe></iframe>
+        <div id="panorama"></div>
 
         <button id="lt" class="btn" type="button">
             <i class="fa-solid fa-lightbulb"></i>
@@ -46,7 +47,7 @@
 
         <footer>人間情報研究会</footer>
 
-        <div id="iframeOverlay" class="visibility-hidden">
+        <div id="panoramaOverlay" class="visibility-hidden">
             <div id="mapWindow">
                 <div id="map"></div>
                 <button type="button" class="toggle">
@@ -67,15 +68,17 @@
 
     </div>
 
-    <!-- BudouX, Leaflet, Driver.js -->
+    <!-- Pannellum, BudouX, Leaflet, Driver.js -->
+    <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
     <script src="https://unpkg.com/budoux/bundle/budoux-ja.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
 
     <script>
-        document.querySelector("iframe").src = `https://cdn.pannellum.org/2.5/pannellum.htm#panorama=${
-            location.origin
-        }/static/images/panorama/{{ filename }}.jpg&autoLoad=true`;
+        pannellum.viewer("panorama", {
+            "autoLoad": true,
+            "panorama": location.origin + "/static/images/panorama/{{ filename }}.jpg"
+        });
 
         const [NUM_QUESTIONS, currentIndex] = [
             Number("{{ NUM_QUESTIONS }}"), Number("{{ currentIndex }}")

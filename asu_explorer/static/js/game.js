@@ -1,6 +1,6 @@
 // マップ
 init_map();
-const map = document.querySelector("#iframeOverlay");
+const map = document.querySelector("#panoramaOverlay");
 
 // チュートリアル
 const driverObj = init_driverjs();
@@ -117,7 +117,7 @@ function init_driverjs() {
         nextBtnText: "進む", prevBtnText: "戻る", doneBtnText: "終了",
 
         steps: [{
-            element: "iframe",
+            element: "#panorama",
             popover: {
                 description: "<budoux-ja>大学内を探検し、表示されている場所を見つけよう。360度、自由に動かせます。</budoux-ja>"
             }
