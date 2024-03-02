@@ -56,6 +56,7 @@ def get_list_value(self, context, model, name):
 
 BaseModelView.get_list_value = get_list_value
 
+#/home/asuexplorer/.local/lib/python3.10/site-packages/
 path = f"{os.environ['VIRTUAL_ENV']}/Lib/site-packages/flask_admin/templates/bootstrap2/admin/model/list.html"
 with open(path, mode="r", encoding="utf-8") as f:
     lines = f.readlines()
@@ -73,7 +74,6 @@ from .auth_model_view import AuthModelView
 
 admin = Admin(app)
 basic_auth = BasicAuth(app)
-
 admin.add_views(
     AuthModelView(User, db.session, basic_auth),
     AuthModelView(sess.app.session_interface.sql_session_model, db.session, basic_auth)

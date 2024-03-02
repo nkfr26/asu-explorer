@@ -2,5 +2,5 @@
 /.venv/
 /instance/
 __pycache__/
-project.db
-asu_explorer.zip
+/others/project.db
+/others/asu_explorer.zip
