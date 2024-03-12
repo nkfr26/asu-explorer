@@ -3,11 +3,10 @@ from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
-# app, config, CORS
+# app, config
 import os, json
 
 from flask import Flask
-from flask_cors import CORS
 
 
 app = Flask(
@@ -23,9 +22,6 @@ app.config.update(
     BASIC_AUTH_PASSWORD=os.getenv("PASSWORD"),
     SQLALCHEMY_DATABASE_URI="sqlite:///project.db"
 )
-CORS(app, resources={
-    "/static/images/panorama/*": {"origins": "https://cdn.pannellum.org"}
-})
 
 # db, session
 from flask_sqlalchemy import SQLAlchemy
